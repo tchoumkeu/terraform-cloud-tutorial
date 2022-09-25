@@ -5,5 +5,5 @@ variable "location" {
 
 variable "app_service_sku" {
   description = "App Service SKU Name"
-  default     = "S1"
+  default     = "F1"
 }
