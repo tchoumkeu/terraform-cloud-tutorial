@@ -17,3 +17,13 @@ variable "resource_tags" {
     "delete-me" = "asap"
   }
 }
+
+variable "sql_admin_login" {
+  description = "SQL Server admin user name"
+  sensitive   = true
+}
+
+variable "sql_admin_password" {
+  description = "SQL Server admin password"
+  sensitive   = true
+}

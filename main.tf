@@ -36,4 +36,28 @@ resource "azurerm_linux_web_app" "todosapp" {
       dotnet_version = "6.0"
     }
   }
+
+  app_settings = {
+    "ConnectionStrings__TodosDatabase" = "Server=tcp:${azurerm_mssql_server.todosmssqlserver.name}.database.windows.net,1433;Initial Catalog=${azurerm_mssql_database.tododatabase.name};Persist Security Info=False;User ID=${var.sql_admin_login};Password=${var.sql_admin_password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+  }
+}
+
+# Create SQL Server
+resource "azurerm_mssql_server" "todosmssqlserver" {
+  name                = "btchoum-todos-mssql-server-${terraform.workspace}"
+  resource_group_name = azurerm_resource_group.todosrg.name
+  location            = azurerm_resource_group.todosrg.location
+  version             = "12.0"
+  minimum_tls_version = "1.2"
+  tags                = merge(var.resource_tags, { type = "sql-server", env = terraform.workspace })
+
+  administrator_login          = var.sql_admin_login
+  administrator_login_password = var.sql_admin_password
+}
+
+resource "azurerm_mssql_database" "tododatabase" {
+  name      = "tododatabase"
+  server_id = azurerm_mssql_server.todosmssqlserver.id
+
+  tags = merge(var.resource_tags, { type = "sql-database", env = terraform.workspace })
 }
