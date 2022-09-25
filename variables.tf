@@ -14,5 +14,6 @@ variable "resource_tags" {
   default = {
     "au" = "654321"
     "dept" = "Sales"
+    "delete-me": "asap"
   }
 }
