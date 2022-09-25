@@ -38,7 +38,7 @@ resource "azurerm_linux_web_app" "todosapp" {
   }
 }
 
-# Create SQL Server database
+# Create SQL Server
 resource "azurerm_mssql_server" "todosmssqlserver" {
   name                = "btchoum-todos-mssql-server-${terraform.workspace}"
   resource_group_name = azurerm_resource_group.todosrg.name
@@ -49,4 +49,11 @@ resource "azurerm_mssql_server" "todosmssqlserver" {
 
   administrator_login          = var.sql_admin_login
   administrator_login_password = var.sql_admin_password
+}
+
+resource "azurerm_mssql_database" "tododatabase" {
+  name      = "tododatabase"
+  server_id = azurerm_mssql_server.todosmssqlserver.id
+
+  tags = merge(var.resource_tags, { type = "sql-database", env = terraform.workspace })
 }
