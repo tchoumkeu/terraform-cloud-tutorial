@@ -7,10 +7,13 @@ provider "azurerm" {
 resource "azurerm_resource_group" "todosrg" {
   name     = "todos-app-rg-${terraform.workspace}"
   location = var.location
-  tags = {
-    "env" = terraform.workspace
-    "type" = "web"
-  }
+  tags = merge(var.resource_tags, { type = "web", env = terraform.workspace })
+#   tags = {
+#     "env" = terraform.workspace
+#     "type" = "web"
+#     "au" = "654321"
+#     "dept" = "Sales"
+#   }
 }
 
 # create an app service plan in the resource group created above
