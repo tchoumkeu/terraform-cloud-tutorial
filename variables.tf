@@ -1,5 +1,5 @@
-variable "region" {
-  description = "Azure region"
+variable "location" {
+  description = "Azure Location"
   default     = "centralus"
 }
 
