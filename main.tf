@@ -47,9 +47,6 @@ resource "azurerm_mssql_server" "todosmssqlserver" {
   minimum_tls_version = "1.2"
   tags                = merge(var.resource_tags, { type = "sql-server", env = terraform.workspace })
 
-  azuread_administrator {
-    login_username              = "user_123"
-    object_id                   = "00000000-0000-0000-0000-000000000000"
-    azuread_authentication_only = true
-  }
+  administrator_login          = var.sql_admin_login
+  administrator_login_password = var.sql_admin_password
 }
