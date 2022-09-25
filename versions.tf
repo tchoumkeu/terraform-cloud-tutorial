@@ -1,12 +1,12 @@
 terraform {
 
-  cloud {
-    organization = "tchoumkeu-todos"
+  # cloud {
+  #   organization = "tchoumkeu-todos"
 
-    workspaces {
-      name = "dev"
-    }
-  }
+  #   workspaces {
+  #     name = "dev"
+  #   }
+  # }
 
   required_providers {
     azurerm = {
