@@ -9,6 +9,7 @@ resource "azurerm_resource_group" "todosrg" {
   location = var.location
   tags = {
     "env" = terraform.workspace
+    "type" = "web"
   }
 }
 
