@@ -36,6 +36,10 @@ resource "azurerm_linux_web_app" "todosapp" {
       dotnet_version = "6.0"
     }
   }
+
+  app_settings = {
+    "ConnectionStrings__TodosDatabase" = "Server=tcp:${azurerm_mssql_server.todosmssqlserver.name}.database.windows.net,1433;Initial Catalog=${azurerm_mssql_database.tododatabase.name};Persist Security Info=False;User ID=${var.sql_admin_login};Password=${var.sql_admin_password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+  }
 }
 
 # Create SQL Server
