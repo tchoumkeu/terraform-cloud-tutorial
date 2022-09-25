@@ -37,3 +37,19 @@ resource "azurerm_linux_web_app" "todosapp" {
     }
   }
 }
+
+# Create SQL Server database
+resource "azurerm_mssql_server" "todosmssqlserver" {
+  name                = "btchoum-todos-mssql-server-${terraform.workspace}"
+  resource_group_name = azurerm_resource_group.todosrg.name
+  location            = azurerm_resource_group.todosrg.location
+  version             = "12.0"
+  minimum_tls_version = "1.2"
+  tags                = merge(var.resource_tags, { type = "sql-server", env = terraform.workspace })
+
+  azuread_administrator {
+    login_username              = "user_123"
+    object_id                   = "00000000-0000-0000-0000-000000000000"
+    azuread_authentication_only = true
+  }
+}
