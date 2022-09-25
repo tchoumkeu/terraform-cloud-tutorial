@@ -10,10 +10,10 @@ variable "app_service_sku" {
 
 variable "resource_tags" {
   description = "Tags to set for all resources"
-  type = map(string)
+  type        = map(string)
   default = {
-    "au" = "654321"
-    "dept" = "Sales"
-    "delete-me": "asap"
+    "au"        = "654321"
+    "dept"      = "Sales"
+    "delete-me" = "asap"
   }
 }
