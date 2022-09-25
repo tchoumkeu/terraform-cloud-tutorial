@@ -7,6 +7,9 @@ provider "azurerm" {
 resource "azurerm_resource_group" "todosrg" {
   name     = "todos-app-rg-${terraform.workspace}"
   location = var.location
+  tags = {
+    "env" = terraform.workspace
+  }
 }
 
 # create an app service plan in the resource group created above
